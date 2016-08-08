@@ -12,8 +12,9 @@ public class Ex2_Streams {
     /**
      * @return the number of objects in the given stream
      */
-    public static <T> Long streamCount(Stream<T> stream) {
-        return null;
+    public static <T> Long streamCount(Stream<T> stream)
+    {
+        return stream.count();
     }
 
     /**
@@ -23,24 +24,27 @@ public class Ex2_Streams {
      *
      * Ref: see the Person class
      */
-    public static Stream<Person> nTuplets(List<String> firstNames) {
-        return null;
+    public static Stream<Person> nTuplets(List<String> firstNames)
+    {
+        return firstNames.stream().map(n -> { return new Person(n, "",0); });
     }
 
     /**
      * Using filter,
      * @return a stream of Students with WAMs same or greater than the provided Double
      */
-    public static Stream<Student> minWAMStudents(List<Student> students, Double minWAM) {
-        return null;
+    public static Stream<Student> minWAMStudents(List<Student> students, Double minWAM)
+    {
+        return students.stream().filter(s -> { return s.getWAM() >= minWAM; });
     }
 
     /**
      * Using reduce,
      * @return a boolean value indicating whether any of the values in the stream are true
      */
-    public static Boolean any(Stream<Boolean> bools) {
-        return null;
+    public static Boolean any(Stream<Boolean> bools)
+    {
+        return bools.reduce((a,b) -> a || b).get();
     }
 
     /**
@@ -48,8 +52,9 @@ public class Ex2_Streams {
      *
      * Hint: Test your code using System.out as the PrintStream
      */
-    public static void printIntegers(Stream<Integer> stream, PrintStream ps) {
-        //todo
+    public static void printIntegers(Stream<Integer> stream, PrintStream ps)
+    {
+        stream.forEach(ps::println);
     }
 
     /**
@@ -59,7 +64,13 @@ public class Ex2_Streams {
      * At each step, output the stream to the appropriate PrintStream in the format "1 2 3 " using peek.
      */
     public static Integer doubleFilterSum(Stream<Integer> stream, PrintStream ps_map, PrintStream ps_filter) {
-        return null;
+        return stream
+                .map(i -> 2 * i)
+                .peek(i -> ps_map.print(i + " "))
+                .filter(i -> i > 9)
+                .peek(i -> ps_filter.print(i + " "))
+                .mapToInt(i -> i.intValue())
+                .sum();
     }
 
     /**
@@ -70,16 +81,18 @@ public class Ex2_Streams {
      *
      * Hint: Lookup the method Stream.of
      */
-    public static Stream<Double> sinAndCos(Stream<Double> stream) {
-        return null;
+    public static Stream<Double> sinAndCos(Stream<Double> stream)
+    {
+        return stream.flatMap(i -> Stream.of(Math.sin(i), Math.cos(i)));
     }
 
     /**
      * Using collect and a standard Collector
      * @return a list of words from the stream
      */
-    public static List<String> wordList(Stream<String> stream) {
-        return null;
+    public static List<String> wordList(Stream<String> stream)
+    {
+        return stream.collect(Collectors.toList());
     }
 
     /**
@@ -93,9 +106,12 @@ public class Ex2_Streams {
      *
      *  e.g: 5 -> 16 -> 8 -> 4 -> 2 -> 1 -> ...
      */
-    public static Stream<Integer> hailstoneStream(Integer seed) {
-    	return null;
-        
+    public static Stream<Integer> hailstoneStream(Integer seed)
+    {
+        // Does not compile (incompatible type for x % 2)
+    	// return Stream.iterate(seed, x -> (x % 2 == 0) ? (0.5 * x) : (3 * x + 1))
+        //        .limit(seed + 1);
+        return null;
     }
 
 }
