@@ -79,7 +79,7 @@ public class Ex1_Lambads {
      */
     public static Comparator<Person> personComparatorWithAge()
     {
-        return personComparator().thenComparing(Comparator.nullsLast(Comparator.comparing(Person::getAge)));
+        return personComparator().thenComparing(Person::getAge, Comparator.nullsLast(Comparator.naturalOrder()));
     }
 
     /**
