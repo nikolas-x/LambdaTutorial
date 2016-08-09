@@ -15,15 +15,17 @@ public class Ex3_Collectors {
     /**
      * Collects all integers as a list
      */
-    public static List<Integer> makeList( Stream<Integer> ints ) {
+    public static List<Integer> makeList( Stream<Integer> ints )
+    {
         return ints.collect(Collectors.toList());
     }
 
     /**
      * Collects the stream of Strings as a Set of strings
      */
-    public static Set<String> makeSet( Stream<String> strings ) {
-        return null;
+    public static Set<String> makeSet( Stream<String> strings )
+    {
+        return strings.collect(Collectors.toSet());
     }
 
     /**
@@ -31,8 +33,9 @@ public class Ex3_Collectors {
      *
      * Hint: See Collectors::counting
      */
-    public static long countDoubles( Stream<Double> dbls ) {
-        return 0;
+    public static long countDoubles( Stream<Double> dbls )
+    {
+        return dbls.collect(Collectors.counting());
     }
 
     /**
@@ -42,8 +45,9 @@ public class Ex3_Collectors {
      *
      * Hint: See Collectors::joining
      */
-    public static String joinInts( Stream<Integer> ints ) {
-        return null;
+    public static String joinInts( Stream<Integer> ints )
+    {
+        return ints.map(x -> x.toString()).collect(Collectors.joining(","));
     }
 
     /**
@@ -51,8 +55,9 @@ public class Ex3_Collectors {
      *
      * Hint: See Collectors::summarizingInt
      */
-    public static double calcMean( Stream<Integer> ints ) {
-        return 0;
+    public static double calcMean( Stream<Integer> ints )
+    {
+        return ints.collect(Collectors.averagingInt(x -> x));
     }
 
     /**
@@ -60,8 +65,9 @@ public class Ex3_Collectors {
      *
      * Hint: See Collectors::summingLong
      */
-    public static long calcSum( Stream<Integer> ints ) {
-        return 0;
+    public static long calcSum( Stream<Integer> ints )
+    {
+        return ints.collect(Collectors.summingInt(x -> x));
     }
 
     /**
@@ -69,8 +75,9 @@ public class Ex3_Collectors {
      *
      * Hint: You don't need to call Stream::map before going to the collector
      */
-    public static long calcSumOfIntStrings( Stream<String> strings ) {
-        return 0;
+    public static long calcSumOfIntStrings( Stream<String> strings )
+    {
+        return strings.collect(Collectors.summingInt(s -> Integer.parseInt(s)));
     }
 
     /**
@@ -78,8 +85,9 @@ public class Ex3_Collectors {
      *
      * Hint: see Collectors::toCollection
      */
-    public static LinkedList<Integer> linkedList( Stream<Integer> integers ) {
-        return null;
+    public static LinkedList<Integer> linkedList( Stream<Integer> integers )
+    {
+        return integers.collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -90,8 +98,9 @@ public class Ex3_Collectors {
      *
      * Hint: See Collectors::partitioningBy
      */
-    public static Map<Boolean,List<Integer>> partitionEven( Stream<Integer> ints ) {
-        return null;
+    public static Map<Boolean,List<Integer>> partitionEven( Stream<Integer> ints )
+    {
+        return ints.collect(Collectors.partitioningBy(x -> x % 2 == 0));
     }
 
     /**
@@ -99,8 +108,9 @@ public class Ex3_Collectors {
      *
      * Hint: See Collectors::groupingBy
      */
-    public static Map<Class,List<Object>> classifyingObject( Stream<Object> objects ) {
-        return null;
+    public static Map<Class,List<Object>> classifyingObject( Stream<Object> objects )
+    {
+        return objects.collect(Collectors.groupingBy(Object::getClass));
     }
 
 }
