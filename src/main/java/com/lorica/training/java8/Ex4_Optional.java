@@ -39,8 +39,9 @@ public class Ex4_Optional {
      * Hint: Understand the difference between Optional::of and Optional::ofNullable
      */
     @Nonnull
-    public static Optional<String> makeOptional(int i) {
-        return null;
+    public static Optional<String> makeOptional(int i)
+    {
+        return Optional.ofNullable(strMapper(i));
     }
 
     /**
@@ -49,8 +50,9 @@ public class Ex4_Optional {
      * Hint: See Optional::map
      */
     @Nonnull
-    public static Optional<String> prependString(int i) {
-        return null;
+    public static Optional<String> prependString(int i)
+    {
+        return Optional.ofNullable(strMapper(i)).map(s -> "NUM" + s);
     }
 
     /**
@@ -60,8 +62,9 @@ public class Ex4_Optional {
      * Hint: See Optional::map, and see if you can do this using a method reference
      */
     @Nonnull
-    public static Optional<Integer> extractNumber(int i) {
-        return null;
+    public static Optional<Integer> extractNumber(int i)
+    {
+        return Optional.ofNullable(strMapper(i)).map(Integer::parseInt);
     }
 
     /**
@@ -71,8 +74,9 @@ public class Ex4_Optional {
      * Hint: See Optional::Filter
      */
     @Nonnull
-    public static Optional<String> emptyOn5( int i ) {
-        return null;
+    public static Optional<String> emptyOn5( int i )
+    {
+        return Optional.ofNullable(strMapper(i)).filter(s -> !s.equals("5"));
     }
 
     /**
@@ -80,8 +84,9 @@ public class Ex4_Optional {
      *
      * Hint: see Optional::isPresent
      */
-    public static boolean trueIfAbsent(int i) {
-        return false;
+    public static boolean trueIfAbsent(int i)
+    {
+        return !Optional.ofNullable(strMapper(i)).isPresent();
     }
 
     /**
@@ -90,8 +95,9 @@ public class Ex4_Optional {
      * Hint: See Optional::orElse
      */
     @Nonnull
-    public static String missingIfEmpty( int i ) {
-        return null;
+    public static String missingIfEmpty( int i )
+    {
+        return Optional.ofNullable(strMapper(i)).orElse("MISSING");
     }
 
     /**
@@ -100,8 +106,9 @@ public class Ex4_Optional {
      * Hint: See Optional::orElseThrow
      */
     @Nonnull
-    public static String crashIfEmpty( int i ) {
-        return null;
+    public static String crashIfEmpty( int i )
+    {
+        return Optional.ofNullable(strMapper(i)).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
@@ -110,8 +117,9 @@ public class Ex4_Optional {
      * Hint: See Optional::flatMap
      */
     @Nonnull
-    public static Optional<Computer.Soundcard> nestedOptionals( Optional<Computer> c ) {
-        return null;
+    public static Optional<Computer.Soundcard> nestedOptionals( Optional<Computer> c )
+    {
+        return c.flatMap(Computer::getSoundCard);
     }
 
     /**
@@ -121,8 +129,14 @@ public class Ex4_Optional {
      * Hint: See Optional::flatMap
      */
     @Nonnull
-    public static String getSoundcardUSBVersion( Computer c ) {
-        return null;
+    public static String getSoundcardUSBVersion( Computer c )
+    {
+        return Optional.ofNullable(c)
+                .flatMap(Computer::getSoundCard)
+                .flatMap(Computer.Soundcard::getUsb)
+                .flatMap(Computer.USB::getVersion)
+                .orElse("N/A"); //NOTE: Original docs said to expect 'internal'
+                                // but the unit test expected 'N/A'
     }
 
     /**
@@ -132,7 +146,8 @@ public class Ex4_Optional {
      * Hint: See Stream::distinct
      */
     @Nonnull
-    public static Stream<String> getUSBVersionStream(Stream<Computer> compStream) {
+    public static Stream<String> getUSBVersionStream(Stream<Computer> compStream)
+    {
         return null;
     }
 }
