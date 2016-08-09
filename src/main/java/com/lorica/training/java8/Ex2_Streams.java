@@ -108,10 +108,7 @@ public class Ex2_Streams {
      */
     public static Stream<Integer> hailstoneStream(Integer seed)
     {
-        // Does not compile (incompatible type for x % 2)
-    	// return Stream.iterate(seed, x -> (x % 2 == 0) ? (0.5 * x) : (3 * x + 1))
-        //        .limit(seed + 1);
-        return null;
+        return Stream.iterate(seed, x -> x % 2 == 0 ? x/2 : (3 * x) + 1);
     }
 
 }
